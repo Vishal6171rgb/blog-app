@@ -1,12 +1,15 @@
 const postsContainer = document.getElementById('posts');
 const postForm = document.getElementById('postForm');
 
+// Change this to your deployed Render backend
+const BASE_URL = 'https://blog-app-eat2.onrender.com';
+
 let posts = [];
 
 // Fetch and display posts from server on page load
 async function fetchPosts() {
     try {
-        const res = await fetch('http://localhost:5000/posts');
+        const res = await fetch(`${BASE_URL}/posts`);
         posts = await res.json();
         displayPosts();
     } catch (error) {
@@ -32,7 +35,7 @@ function displayPosts() {
 // Add post via API
 async function addPost(post) {
     try {
-        const res = await fetch('http://localhost:5000/posts', {
+        const res = await fetch(`${BASE_URL}/posts`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(post),
@@ -51,7 +54,7 @@ async function addPost(post) {
 // Delete post via API
 async function deletePost(id) {
     try {
-        const res = await fetch(`http://localhost:5000/posts/${id}`, {
+        const res = await fetch(`${BASE_URL}/posts/${id}`, {
             method: 'DELETE',
         });
         if (res.ok) {
